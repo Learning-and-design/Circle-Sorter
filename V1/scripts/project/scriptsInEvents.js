@@ -52,18 +52,18 @@ const scriptsInEvents = {
 			
 		},
 
-		async Es_common_Event119_Act1(runtime, localVars)
+		async Es_common_Event121_Act1(runtime, localVars)
 		{
 			localStorage.setItem(runtime.globalVars.LOCAL_GAME_KEY, JSON.stringify(runtime.getInstanceByUid(runtime.globalVars.JSON_UID).getJsonDataCopy()));
 			console.log(runtime.getInstanceByUid(runtime.globalVars.JSON_UID).getJsonDataCopy())
 		},
 
-		async Es_common_Event120_Act4(runtime, localVars)
+		async Es_common_Event122_Act4(runtime, localVars)
 		{
 			AppInterface.sendToApp(runtime.getInstanceByUid(runtime.globalVars.JSON2_UID).getJsonDataCopy());
 		},
 
-		async Es_common_Event122_Act1(runtime, localVars)
+		async Es_common_Event124_Act1(runtime, localVars)
 		{
 			
 			const nextLevel = runtime.globalVars.CurrentLevel+1;
@@ -78,7 +78,7 @@ const scriptsInEvents = {
 			
 		},
 
-		async Es_common_Event224_Act48(runtime, localVars)
+		async Es_common_Event226_Act48(runtime, localVars)
 		{
 			localStorage.setItem(runtime.globalVars.LOCAL_GAME_KEY, JSON.stringify(runtime.getInstanceByUid(runtime.globalVars.JSON_UID).getJsonDataCopy()));
 			if(AppInterface!="undefined")
@@ -87,7 +87,7 @@ const scriptsInEvents = {
 			
 		},
 
-		async Es_common_Event296_Act1(runtime, localVars)
+		async Es_common_Event298_Act1(runtime, localVars)
 		{
 			let level = runtime.globalVars.CurrentLevel;
 			
