@@ -107,7 +107,7 @@ const scriptsInEvents = {
 			runtime.globalVars.isMusic = data.isMusic;
 		},
 
-		async Es_level2_Event54_Act4(runtime, localVars)
+		async Es_level2_Event57_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;
@@ -115,7 +115,7 @@ const scriptsInEvents = {
 			runtime.globalVars.isMusic = data.isMusic;
 		},
 
-		async Es_level3_Event54_Act4(runtime, localVars)
+		async Es_level3_Event59_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;
@@ -123,7 +123,7 @@ const scriptsInEvents = {
 			runtime.globalVars.isMusic = data.isMusic;
 		},
 
-		async Es_level4_Event46_Act4(runtime, localVars)
+		async Es_level4_Event49_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;

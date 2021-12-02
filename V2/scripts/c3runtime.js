@@ -4376,7 +4376,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Fade.Acts.SetWaitTime,
 		C3.Behaviors.Fade.Acts.SetFadeOutTime,
 		C3.Behaviors.Fade.Acts.RestartFade,
-		C3.ScriptsInEvents.Es_level4_Event48_Act4
+		C3.ScriptsInEvents.Es_level4_Event49_Act4
 	];
 };
 self.C3_JsPropNameTable = [

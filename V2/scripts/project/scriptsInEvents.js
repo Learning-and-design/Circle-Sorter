@@ -123,7 +123,7 @@ const scriptsInEvents = {
 			runtime.globalVars.isMusic = data.isMusic;
 		},
 
-		async Es_level4_Event48_Act4(runtime, localVars)
+		async Es_level4_Event49_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;

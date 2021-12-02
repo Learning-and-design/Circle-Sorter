@@ -3688,6 +3688,42 @@ lastTapTime=-1E4;return"double-tap"}else{lastTapX=this._x;lastTapY=this._y;lastT
 }
 
 {
+'use strict';const C3=self.C3;C3.Plugins.Dictionary=class DictionaryPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.Dictionary.Type=class DictionaryType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}};
+
+}
+
+{
+'use strict';const C3=self.C3;const C3X=self.C3X;const IInstance=self.IInstance;
+C3.Plugins.Dictionary.Instance=class DictionaryInstance extends C3.SDKInstanceBase{constructor(inst,properties){super(inst);this._data=new Map;this._curKey=""}Release(){this._data.clear();super.Release()}GetAsJsonString(){return JSON.stringify({"c2dictionary":true,"data":C3.MapToObject(this._data)})}GetDataMap(){return this._data}SaveToJson(){return C3.MapToObject(this._data)}LoadFromJson(o){C3.ObjectToMap(o,this._data)}GetDebuggerProperties(){const prefix="plugins.dictionary";return[{title:prefix+
+".name",properties:[{name:prefix+".debugger.key-count",value:this._data.size},...[...this._data].map(entry=>({name:"$"+entry[0],value:entry[1],onedit:v=>this._data.set(entry[0],v)}))]}]}GetScriptInterfaceClass(){return self.IDictionaryInstance}};const map=new WeakMap;self.IDictionaryInstance=class IDictionaryInstance extends IInstance{constructor(){super();map.set(this,IInstance._GetInitInst().GetSdkInstance())}getDataMap(){return map.get(this).GetDataMap()}};
+
+}
+
+{
+'use strict';const C3=self.C3;
+C3.Plugins.Dictionary.Cnds={CompareValue(key,cmp,val){const x=this._data.get(key);if(typeof x==="undefined")return false;return C3.compare(x,cmp,val)},ForEachKey(){const runtime=this._runtime;const eventSheetManager=runtime.GetEventSheetManager();const currentEvent=runtime.GetCurrentEvent();const solModifiers=currentEvent.GetSolModifiers();const eventStack=runtime.GetEventStack();const oldFrame=eventStack.GetCurrentStackFrame();const newFrame=eventStack.Push(currentEvent);runtime.SetDebuggingEnabled(false);
+for(const key of this._data.keys()){this._curKey=key;eventSheetManager.PushCopySol(solModifiers);currentEvent.Retrigger(oldFrame,newFrame);eventSheetManager.PopSol(solModifiers)}runtime.SetDebuggingEnabled(true);this._curKey="";eventStack.Pop();return false},CompareCurrentValue(cmp,val){const x=this._data.get(this._curKey);if(typeof x==="undefined")return false;return C3.compare(x,cmp,val)},HasKey(key){return this._data.has(key)},IsEmpty(){return this._data.size===0}};
+
+}
+
+{
+'use strict';const C3=self.C3;
+C3.Plugins.Dictionary.Acts={AddKey(key,value){this._data.set(key,value)},SetKey(key,value){if(this._data.has(key))this._data.set(key,value)},DeleteKey(key){this._data.delete(key)},Clear(){this._data.clear()},JSONLoad(json){let o=null;try{o=JSON.parse(json)}catch(err){console.error("[Construct 3] Error parsing JSON: ",err);return}if(!o["c2dictionary"])return;C3.ObjectToMap(o["data"],this._data)},JSONDownload(filename){const url=URL.createObjectURL(new Blob([this.GetAsJsonString()],{type:"application/json"}));
+this._runtime.InvokeDownload(url,filename)}};
+
+}
+
+{
+'use strict';const C3=self.C3;C3.Plugins.Dictionary.Exps={Get(key){const ret=this._data.get(key);if(typeof ret==="undefined")return 0;else return ret},GetDefault(key,defaultValue){const ret=this._data.get(key);if(typeof ret==="undefined")return defaultValue;else return ret},KeyCount(){return this._data.size},CurrentKey(){return this._curKey},CurrentValue(){return this._data.get(this._curKey)||0},AsJSON(){return this.GetAsJsonString()}};
+
+}
+
+{
 'use strict';const C3=self.C3;C3.Plugins.Particles=class ParticlesPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}};
 
 }
@@ -4195,6 +4231,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Json,
 		C3.Plugins.PlatformInfo,
 		C3.Plugins.Touch,
+		C3.Plugins.Dictionary,
 		C3.Behaviors.DragnDrop,
 		C3.Plugins.Particles,
 		C3.Behaviors.Anchor,
@@ -4203,6 +4240,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Audio.Acts.PlayByName,
 		C3.ScriptsInEvents.Egame_Event3_Act1,
+		C3.Plugins.Arr.Acts.Destroy,
+		C3.Plugins.System.Cnds.For,
+		C3.Plugins.System.Acts.CreateObject,
+		C3.Plugins.Arr.Acts.SetInstanceVar,
+		C3.Plugins.System.Exps.loopindex,
 		C3.Plugins.Sprite.Acts.SetWidth,
 		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.Sprite.Exps.Width,
@@ -4234,8 +4276,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Touch.Cnds.OnTouchStart,
 		C3.Plugins.Touch.Cnds.IsInTouch,
 		C3.Plugins.System.Acts.SetVar,
-		C3.Plugins.System.Cnds.For,
-		C3.Plugins.System.Exps.loopindex,
 		C3.Plugins.System.Cnds.Compare,
 		C3.Plugins.Arr.Exps.At,
 		C3.Plugins.Sprite.Acts.SetEffectEnabled,
@@ -4318,8 +4358,13 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Tween.Acts.TweenOneProperty,
 		C3.Behaviors.Pin.Cnds.IsPinned,
 		C3.Behaviors.Pin.Acts.Unpin,
-		C3.ScriptsInEvents.Es_level2_Event54_Act4,
-		C3.ScriptsInEvents.Es_level3_Event54_Act4,
+		C3.Behaviors.Rotate.Acts.SetEnabled,
+		C3.Plugins.Arr.Cnds.CompareInstanceVar,
+		C3.Behaviors.Rotate.Acts.SetAcceleration,
+		C3.Plugins.System.Exps.choose,
+		C3.ScriptsInEvents.Es_level2_Event57_Act4,
+		C3.Behaviors.Rotate.Exps.Speed,
+		C3.ScriptsInEvents.Es_level3_Event59_Act4,
 		C3.Plugins.Touch.Cnds.OnNthTouchStart,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
 		C3.Plugins.Arr.Acts.Pop,
@@ -4331,7 +4376,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Fade.Acts.SetWaitTime,
 		C3.Behaviors.Fade.Acts.SetFadeOutTime,
 		C3.Behaviors.Fade.Acts.RestartFade,
-		C3.ScriptsInEvents.Es_level4_Event46_Act4
+		C3.ScriptsInEvents.Es_level4_Event49_Act4
 	];
 };
 self.C3_JsPropNameTable = [
@@ -4393,13 +4438,14 @@ self.C3_JsPropNameTable = [
 	{Confetti: 0},
 	{ArrayCookies: 0},
 	{ArrayInstructions: 0},
-	{ArrayPlates: 0},
+	{ArrayCircleSlot: 0},
 	{AJAX: 0},
 	{Audio: 0},
 	{Browser: 0},
 	{JSON: 0},
 	{JSON2: 0},
 	{PlatformInfo: 0},
+	{CircleSizes: 0},
 	{ButtonSpeech: 0},
 	{CircleBoard: 0},
 	{Size: 0},
@@ -4537,9 +4583,12 @@ self.C3_JsPropNameTable = [
 	{L4_Completion_Criteria: 0},
 	{isGameOver: 0},
 	{target: 0},
+	{X_: 0},
+	{gap: 0},
 	{currentValue: 0},
 	{tempItem: 0},
-	{rand_index: 0}
+	{rand_index: 0},
+	{LevelNo: 0}
 ];
 }
 
@@ -4644,7 +4693,14 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
 		},
+		() => "slots",
+		() => 1,
+		() => 4,
 		() => 0,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("slots");
+		},
 		() => 44,
 		p => {
 			const n0 = p._GetNode(0);
@@ -4653,7 +4709,6 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "Global Buttons",
 		() => "Home",
-		() => 1,
 		() => "Back",
 		() => 2,
 		() => 3,
@@ -4686,7 +4741,6 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (v0.GetValue() + v1.GetValue());
 		},
-		() => 4,
 		() => 15,
 		() => "L1 Audios",
 		() => 5,
@@ -5109,7 +5163,50 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "L2-Hint",
 		() => "L2-Tutorial",
+		() => 6,
+		() => "Dots",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 1);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("Dots");
+		},
+		() => "slotArr",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("slotArr");
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			return () => ((n0.ExpInstVar()) === (add(n1.ExpObject(f2("slotArr")), 4)) ? 1 : 0);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() / 2);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => ((n0.ExpObject() / 2) + v1.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => ((n0.ExpInstVar()) === (n1.ExpInstVar()) ? 1 : 0);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0((-50), (-100), (-150), (-180), (-70), (-35));
+		},
 		() => "Level2-Game",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpBehavior();
+		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
@@ -5131,6 +5228,16 @@ self.C3_ExpressionFuncs = [
 		() => "Level2-Demo Functions",
 		() => "L3-Hint",
 		() => "L3-Tutorial",
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			return () => ((n0.ExpInstVar()) === (add(n1.ExpObject(f2("slotArr")), 1)) ? 1 : 0);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (70 + (n0.ExpObject() / 2));
+		},
 		() => "Level3-Game",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -5152,10 +5259,6 @@ self.C3_ExpressionFuncs = [
 		() => "out",
 		() => "Level4-Functions",
 		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 1);
-		},
-		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
 			return () => Math.floor(f0(0, n1.ExpObject()));
@@ -5169,6 +5272,21 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
 			return () => n0.ExpObject(v1.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => ((n0.ExpInstVar()) === (v1.GetValue()) ? 1 : 0);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.floor(f0(4));
+		},
+		() => 8,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => Math.floor(f0(4, n1.ExpObject()));
 		},
 		p => {
 			const n0 = p._GetNode(0);
