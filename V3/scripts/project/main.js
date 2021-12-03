@@ -30,6 +30,7 @@ document.addEventListener("message", handleEvent);
 function handleEvent(messageTemp) {	
 	isWeb = false;
 	messageData =  messageTemp.data;	
+	alert("Data: "+JSON.stringify(messageData))
 }
 
 runOnStartup(async runtime =>
