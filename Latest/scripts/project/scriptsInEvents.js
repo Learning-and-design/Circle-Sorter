@@ -97,9 +97,10 @@ const scriptsInEvents = {
 			}
 			else
 			document.body.style.backgroundColor = colors[level];
+			document.getElementsByTagName("html")[0].style.background = colors[level];
 		},
 
-		async Es_level1_Event60_Act4(runtime, localVars)
+		async Es_level1_Event53_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;
@@ -107,7 +108,7 @@ const scriptsInEvents = {
 			runtime.globalVars.isMusic = data.isMusic;
 		},
 
-		async Es_level2_Event57_Act4(runtime, localVars)
+		async Es_level2_Event51_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;
@@ -115,7 +116,7 @@ const scriptsInEvents = {
 			runtime.globalVars.isMusic = data.isMusic;
 		},
 
-		async Es_level3_Event59_Act4(runtime, localVars)
+		async Es_level3_Event53_Act4(runtime, localVars)
 		{
 			let data = JSON.parse(localStorage.getItem(runtime.globalVars.LOCAL_GAME_KEY));
 			runtime.globalVars.RewardPoints = data.totalRewards;

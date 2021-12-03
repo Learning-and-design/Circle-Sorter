@@ -3688,42 +3688,6 @@ lastTapTime=-1E4;return"double-tap"}else{lastTapX=this._x;lastTapY=this._y;lastT
 }
 
 {
-'use strict';const C3=self.C3;C3.Plugins.Dictionary=class DictionaryPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}};
-
-}
-
-{
-'use strict';const C3=self.C3;C3.Plugins.Dictionary.Type=class DictionaryType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}};
-
-}
-
-{
-'use strict';const C3=self.C3;const C3X=self.C3X;const IInstance=self.IInstance;
-C3.Plugins.Dictionary.Instance=class DictionaryInstance extends C3.SDKInstanceBase{constructor(inst,properties){super(inst);this._data=new Map;this._curKey=""}Release(){this._data.clear();super.Release()}GetAsJsonString(){return JSON.stringify({"c2dictionary":true,"data":C3.MapToObject(this._data)})}GetDataMap(){return this._data}SaveToJson(){return C3.MapToObject(this._data)}LoadFromJson(o){C3.ObjectToMap(o,this._data)}GetDebuggerProperties(){const prefix="plugins.dictionary";return[{title:prefix+
-".name",properties:[{name:prefix+".debugger.key-count",value:this._data.size},...[...this._data].map(entry=>({name:"$"+entry[0],value:entry[1],onedit:v=>this._data.set(entry[0],v)}))]}]}GetScriptInterfaceClass(){return self.IDictionaryInstance}};const map=new WeakMap;self.IDictionaryInstance=class IDictionaryInstance extends IInstance{constructor(){super();map.set(this,IInstance._GetInitInst().GetSdkInstance())}getDataMap(){return map.get(this).GetDataMap()}};
-
-}
-
-{
-'use strict';const C3=self.C3;
-C3.Plugins.Dictionary.Cnds={CompareValue(key,cmp,val){const x=this._data.get(key);if(typeof x==="undefined")return false;return C3.compare(x,cmp,val)},ForEachKey(){const runtime=this._runtime;const eventSheetManager=runtime.GetEventSheetManager();const currentEvent=runtime.GetCurrentEvent();const solModifiers=currentEvent.GetSolModifiers();const eventStack=runtime.GetEventStack();const oldFrame=eventStack.GetCurrentStackFrame();const newFrame=eventStack.Push(currentEvent);runtime.SetDebuggingEnabled(false);
-for(const key of this._data.keys()){this._curKey=key;eventSheetManager.PushCopySol(solModifiers);currentEvent.Retrigger(oldFrame,newFrame);eventSheetManager.PopSol(solModifiers)}runtime.SetDebuggingEnabled(true);this._curKey="";eventStack.Pop();return false},CompareCurrentValue(cmp,val){const x=this._data.get(this._curKey);if(typeof x==="undefined")return false;return C3.compare(x,cmp,val)},HasKey(key){return this._data.has(key)},IsEmpty(){return this._data.size===0}};
-
-}
-
-{
-'use strict';const C3=self.C3;
-C3.Plugins.Dictionary.Acts={AddKey(key,value){this._data.set(key,value)},SetKey(key,value){if(this._data.has(key))this._data.set(key,value)},DeleteKey(key){this._data.delete(key)},Clear(){this._data.clear()},JSONLoad(json){let o=null;try{o=JSON.parse(json)}catch(err){console.error("[Construct 3] Error parsing JSON: ",err);return}if(!o["c2dictionary"])return;C3.ObjectToMap(o["data"],this._data)},JSONDownload(filename){const url=URL.createObjectURL(new Blob([this.GetAsJsonString()],{type:"application/json"}));
-this._runtime.InvokeDownload(url,filename)}};
-
-}
-
-{
-'use strict';const C3=self.C3;C3.Plugins.Dictionary.Exps={Get(key){const ret=this._data.get(key);if(typeof ret==="undefined")return 0;else return ret},GetDefault(key,defaultValue){const ret=this._data.get(key);if(typeof ret==="undefined")return defaultValue;else return ret},KeyCount(){return this._data.size},CurrentKey(){return this._curKey},CurrentValue(){return this._data.get(this._curKey)||0},AsJSON(){return this.GetAsJsonString()}};
-
-}
-
-{
 'use strict';const C3=self.C3;C3.Plugins.Particles=class ParticlesPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}};
 
 }
@@ -4232,7 +4196,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Json,
 		C3.Plugins.PlatformInfo,
 		C3.Plugins.Touch,
-		C3.Plugins.Dictionary,
 		C3.Behaviors.DragnDrop,
 		C3.Plugins.Particles,
 		C3.Plugins.System.Cnds.OnLayoutStart,
@@ -4250,7 +4213,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.Width,
 		C3.Plugins.System.Exps.loadingprogress,
 		C3.Plugins.System.Cnds.OnLoadFinished,
-		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Cnds.IsGroupActive,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
@@ -4318,6 +4280,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.ScriptsInEvents.Es_common_Event124_Act1,
 		C3.Plugins.System.Acts.SaveState,
 		C3.Plugins.System.Acts.GoToLayoutByName,
+		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.System.Acts.SetFunctionReturnValue,
 		C3.Plugins.Audio.Acts.SetPaused,
@@ -4438,6 +4401,7 @@ self.C3_JsPropNameTable = [
 	{BG_L1: 0},
 	{Rotate: 0},
 	{Confetti: 0},
+	{LoaderSprite: 0},
 	{ArrayCookies: 0},
 	{ArrayInstructions: 0},
 	{ArrayCircleSlot: 0},
@@ -4447,7 +4411,6 @@ self.C3_JsPropNameTable = [
 	{JSON: 0},
 	{JSON2: 0},
 	{PlatformInfo: 0},
-	{CircleSizes: 0},
 	{ButtonSpeech: 0},
 	{CircleBoard: 0},
 	{Size: 0},
