@@ -30,7 +30,7 @@ document.addEventListener("message", handleEvent);
 function handleEvent(messageTemp) {	
 	isWeb = false;
 	messageData =  messageTemp.data;	
-	alert("Data: "+JSON.stringify(messageData))
+	alert("Data Listener: "+JSON.stringify(messageData))
 }
 
 runOnStartup(async runtime =>
@@ -55,7 +55,8 @@ runOnStartup(async runtime =>
 
 
 	
-	if(messageData){		
+	if(messageData){	
+		alert("Run On Start: "+JSON.stringify(messageData))
 		messageData.completedCount = 0;
 		messageData.levelDetails.level0 = levelDetails.level0;
 		messageData.levelDetails.level1 = levelDetails.level1;
