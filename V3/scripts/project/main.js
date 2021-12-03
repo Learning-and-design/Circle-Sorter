@@ -94,6 +94,7 @@ runOnStartup(async runtime =>
             if(runtime.globalVars.GameLevel == 0){
                 runtime.globalVars.L0_Tutorial_Done =messageData.levelDetails.currentLevel.presentationCompleted
              //remaining are false by default
+			 alert("Game Level0");
             }
             else if(runtime.globalVars.GameLevel == 1){
                 
