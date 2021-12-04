@@ -33,12 +33,12 @@ message.data = {"learningTrackid":1,"gameId":1,"gameVersion":"string","predGameI
 function handleEvent(messageTemp) {	
 	isWeb = false;
 	message =  messageTemp;	
-	alert("data listener:")
+	alert("data listener:"+message.data)
 }
 
 runOnStartup(async runtime =>
 {
-alert("Run On Start: "+JSON.stringify(message.data.levelDetails.currentLevel) + "isWeb:"+isWeb);
+alert("Run On Start");
 	if(isWeb){
 		const local_data = localStorage.getItem(LOCAL_GAME_KEY);
 		if(local_data!=null && local_data !== ""){			
@@ -55,7 +55,7 @@ alert("Run On Start: "+JSON.stringify(message.data.levelDetails.currentLevel) + 
 		messageData = message.data;
 		console.log("loaded from app ", messageData);
 	}
-
+alert("Run On StartData: "+JSON.stringify(messageData) + "\nisWeb:"+isWeb);
 
 	
 	if(messageData){	
