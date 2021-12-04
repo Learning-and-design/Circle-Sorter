@@ -32,16 +32,13 @@ message.data = {"learningTrackid":1,"gameId":1,"gameVersion":"string","predGameI
 
 function handleEvent(messageTemp) {	
 	isWeb = false;
-	//message =  messageTemp;	
-	//alert("Data Listener: "+JSON.stringify(messageData))
+	message =  messageTemp;	
+	
 }
 
 runOnStartup(async runtime =>
 {
-  	//if(isWeb) setWeb();
-	
-	
-	
+
 	if(isWeb){
 		const local_data = localStorage.getItem(LOCAL_GAME_KEY);
 		if(local_data!=null && local_data !== ""){			
