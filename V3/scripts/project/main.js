@@ -7,7 +7,7 @@ function setWeb()
 	if (confirm("Playing in browser?")) {
 	  isWeb = true;
 	} else {
-		messageData = message.data;
+		//messageData = message.data;
 	  isWeb = false
 	}
 }
