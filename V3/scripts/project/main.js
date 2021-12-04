@@ -59,7 +59,7 @@ runOnStartup(async runtime =>
 
 	
 	if(messageData){	
-		alert("Run On Start: "+messageData.levelDetails.currentLevel.level))
+		alert("Run On Start: "+messageData.levelDetails.currentLevel.level);
 		messageData.completedCount = 0;
 		messageData.levelDetails.level0 = levelDetails.level0;
 		messageData.levelDetails.level1 = levelDetails.level1;
