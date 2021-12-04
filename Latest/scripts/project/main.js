@@ -1,4 +1,4 @@
-
+document.addEventListener("message", handleEvent);
 var messageData;
 var isWeb = true;
 const LOCAL_GAME_KEY = "CS_SENSORIAL_L1"
@@ -7,14 +7,14 @@ function setWeb()
 	if (confirm("Playing in browser?")) {
 	  isWeb = true;
 	} else {
-		messageData = message.data;
+		//messageData = message.data;
 	  isWeb = false
 	}
 }
 //localStorage.setItem(LOCAL_GAME_KEY, ""); //uncomment if want to clear cached progress in web
 
 var levelDetails = 
-{"currentLevel":{"level":0,"presentationCompleted":0},"level0":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0}},"level1":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level2":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level3":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level4":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0}}
+{"currentLevel":{"level":1,"presentationCompleted":1},"level0":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0}},"level1":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level2":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level3":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level4":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0}}
 
 
 
@@ -23,19 +23,21 @@ var message = {"data":{}};
 message.data = {"learningTrackid":1,"gameId":1,"gameVersion":"string","predGameId":0,"gamePath":"https://kreedo-game-upload-poc.s3.us-east-2.amazonaws.com/701_LearningTeens.zip","isActive":true,"isblocked":false,"isGameDownloadComplete":true,"gameName":"Circle Sorter","attemptId":0,"totalRewards":0,"completedCount":0,"startDateTime":"","endDateTime":"","completed":0,"isMusic":1,"rewardsPerLevel":10,"levelDetails":{"currentLevel":{"level":1,"presentationCompleted":0},"level0":{"presentation":{"completed":0,"playCount":1,"completedCount":0,"timeSpent":0}},"level1":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level2":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level3":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level4":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0}}};
 
 
+
+
+
 //app will trigger this event on load finish.
 // uncomment this listener if with app else comment
-document.addEventListener("message", handleEvent);
+
 
 function handleEvent(messageTemp) {	
 	isWeb = false;
-	messageData =  messageTemp.data;	
+	message =  JSON.parse(messageTemp)
+	//alert("data listener:"+message.data)
 }
 
 runOnStartup(async runtime =>
 {
-  	//if(isWeb) setWeb();
-	
 	if(isWeb){
 		const local_data = localStorage.getItem(LOCAL_GAME_KEY);
 		if(local_data!=null && local_data !== ""){			
@@ -49,12 +51,14 @@ runOnStartup(async runtime =>
 		}
 	}
 	else{
+		messageData = message.data;
 		console.log("loaded from app ", messageData);
 	}
-
+//alert("Run On Start Level: "+messageData.levelDetails.currentLevel.level + "\nisWeb:"+isWeb);
 
 	
-	if(messageData){		
+	if(messageData){	
+		
 		messageData.completedCount = 0;
 		messageData.levelDetails.level0 = levelDetails.level0;
 		messageData.levelDetails.level1 = levelDetails.level1;
@@ -88,9 +92,11 @@ runOnStartup(async runtime =>
             ;
         }
         else{
+			//alert("Game Level: "+runtime.globalVars.GameLevel);
             if(runtime.globalVars.GameLevel == 0){
                 runtime.globalVars.L0_Tutorial_Done =messageData.levelDetails.currentLevel.presentationCompleted
              //remaining are false by default
+
             }
             else if(runtime.globalVars.GameLevel == 1){
                 
