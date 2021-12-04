@@ -14,7 +14,7 @@ function setWeb()
 //localStorage.setItem(LOCAL_GAME_KEY, ""); //uncomment if want to clear cached progress in web
 
 var levelDetails = 
-{"currentLevel":{"level":0,"presentationCompleted":0},"level0":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0}},"level1":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level2":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level3":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level4":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0}}
+{"currentLevel":{"level":1,"presentationCompleted":1},"level0":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0}},"level1":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level2":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level3":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0},"level4":{"presentation":{"completed":0,"playCount":0,"completedCount":0,"timeSpent":0},"completed":0,"playCount":0,"completedCount":0,"timeSpent":0,"correctAttempts":0,"incorrectAttempts":0}}
 
 
 
@@ -32,7 +32,7 @@ message.data = {"learningTrackid":1,"gameId":1,"gameVersion":"string","predGameI
 
 function handleEvent(messageTemp) {	
 	isWeb = false;
-	messageData =  messageTemp.data;	
+	//message =  messageTemp;	
 	//alert("Data Listener: "+JSON.stringify(messageData))
 }
 
@@ -40,7 +40,7 @@ runOnStartup(async runtime =>
 {
   	//if(isWeb) setWeb();
 	
-	alert("Run On Start: "+JSON.string(messageData.levelDetails.currentLevel) + "isWeb:"+isWeb);
+	
 	
 	if(isWeb){
 		const local_data = localStorage.getItem(LOCAL_GAME_KEY);
@@ -55,10 +55,11 @@ runOnStartup(async runtime =>
 		}
 	}
 	else{
+		messageData = message.data;
 		console.log("loaded from app ", messageData);
 	}
 
-
+alert("Run On Start: "+JSON.stringify(messageData.levelDetails.currentLevel) + "isWeb:"+isWeb);
 	
 	if(messageData){	
 		
