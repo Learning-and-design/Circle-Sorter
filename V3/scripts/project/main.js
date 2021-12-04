@@ -33,7 +33,7 @@ message.data = {"learningTrackid":1,"gameId":1,"gameVersion":"string","predGameI
 function handleEvent(messageTemp) {	
 	isWeb = false;
 	message =  messageTemp;	
-	alert("data listener: "+JSON.stringify(messageData.levelDetails.currentLevel) + "isWeb:"+isWeb);
+	alert("data listener:")
 }
 
 runOnStartup(async runtime =>
