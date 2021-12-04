@@ -32,13 +32,12 @@ message.data = {"learningTrackid":1,"gameId":1,"gameVersion":"string","predGameI
 
 function handleEvent(messageTemp) {	
 	isWeb = false;
-	message =  messageTemp;	
+	message =  JSON.parse(messageTemp)
 	alert("data listener:"+message.data)
 }
 
 runOnStartup(async runtime =>
 {
-alert("Run On Start");
 	if(isWeb){
 		const local_data = localStorage.getItem(LOCAL_GAME_KEY);
 		if(local_data!=null && local_data !== ""){			
@@ -55,7 +54,7 @@ alert("Run On Start");
 		messageData = message.data;
 		console.log("loaded from app ", messageData);
 	}
-alert("Run On StartData: "+JSON.stringify(messageData) + "\nisWeb:"+isWeb);
+alert("Run On Start Level: "+messageData.levelDetails.currentLevel.level + "\nisWeb:"+isWeb);
 
 	
 	if(messageData){	
@@ -97,7 +96,7 @@ alert("Run On StartData: "+JSON.stringify(messageData) + "\nisWeb:"+isWeb);
             if(runtime.globalVars.GameLevel == 0){
                 runtime.globalVars.L0_Tutorial_Done =messageData.levelDetails.currentLevel.presentationCompleted
              //remaining are false by default
-			 alert("Game Level0");
+
             }
             else if(runtime.globalVars.GameLevel == 1){
                 
