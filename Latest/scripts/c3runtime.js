@@ -4328,6 +4328,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.choose,
 		C3.ScriptsInEvents.Es_level2_Event51_Act4,
 		C3.Behaviors.Rotate.Exps.Speed,
+		C3.Plugins.System.Cnds.PickRandom,
 		C3.ScriptsInEvents.Es_level3_Event53_Act4,
 		C3.Plugins.Touch.Cnds.OnNthTouchStart,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
